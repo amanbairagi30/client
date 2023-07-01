@@ -15,31 +15,33 @@ const rules = [
 
 const ResetPassword = () => {
 
-    const { id , token } = useParams();
+    const { id, token } = useParams();
     const [valid, setValid] = useState(false);
     const [status, setStatus] = useState(false);
+    const dispatch = useDispatch()
 
 
-    const onFinish = async(values) => {
-        message.success("Password Updated Successfully")
+    const onFinish = async (values) => {
         try {
-
-            const response = await ResetPasswordHandler(values , id , token)
+            dispatch(SetLoader(true))
+            const response = await ResetPasswordHandler(values, id, token)
+            dispatch(SetLoader(false))
             
-            if(response.success){
+            if (response.success) {
                 message.success(response.message)
                 setStatus(true);
             }
-            else{
+            else {
                 throw new Error(response.message);
             }
             
         } catch (error) {
+            dispatch(SetLoader(false))
             message.error(error.message)
         }
     }
-
-
+    
+    
     return (
         <div>
             <div className='h-screen bg-[#252424] flex justify-center items-center'>

@@ -11,21 +11,6 @@ const Home = () => {
       <Tabs defaultActiveKey='1'>
         <Tabs.TabPane tab="Your Todos" key="1">
           <AddTodo />
-
-
-          <Divider dashed />
-          {/* for todos which are going to be mapped */}
-          <Tabs defaultActiveKey='1' >
-            <Tabs.TabPane tab="Pending" key="1">
-              <Todo />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Completed" key="2">
-              <Todo />
-            </Tabs.TabPane>
-          </Tabs>
-
-
-
         </Tabs.TabPane>
         <Tabs.TabPane tab="Graph and Growth" key="2">
           <h1>Graph</h1>
