@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux"
 import { SetLoader } from "../redux/loadersSlice"
 import { AddTask, GetAllTask } from '../apicalls/task'
 import Todo from './Todo'
+import Calendar from './Calendar'
+import Progress_bar from './ProgressBar'
 
 const rules = [
     {
@@ -15,6 +17,7 @@ const rules = [
 const AddTodo = () => {
     const dispatch = useDispatch()
     const [todo, setTodo] = React.useState([]);
+    const [completionPercentage, setCompletionPercentage] = React.useState(0);
 
 
     const getTodo = async () => {
@@ -24,6 +27,9 @@ const AddTodo = () => {
             dispatch(SetLoader(false))
             if (response.success) {
                 setTodo(response.data)
+                const completedTasks = response.data.filter(task => task.completed);
+                const percentage = (completedTasks.length / response.data.length) * 100;
+                setCompletionPercentage(percentage.toFixed(2));
                 // message.success("Data Fetched Successfully")
             } else {
                 message.error("Something went wrong , try refreshing the page");
@@ -65,6 +71,11 @@ const AddTodo = () => {
                 <div className='w-full'>
 
                     <h1 className='text-center mt-2 text-2xl'>Target for Today</h1>
+                    {/* <h1 className='text-center mt-2 text-2xl'>{completionPercentage}</h1> */}
+                    <div className='flex items-center  justify-center h-fit m-0 p-0 border-black'>
+
+                        <Progress_bar bgcolor={(completionPercentage >= 80 ? "bg-green-500 text-white" : "bg-yellow-400 ")} progress={completionPercentage === "NaN" ? "0" :completionPercentage} height={20} />
+                    </div>
                     <div className="m-auto flex  px-4">
                         <Form
                             layout="vertical"
@@ -87,7 +98,9 @@ const AddTodo = () => {
                 <div className='w-full  p-4 mr-4 flex flex-col items-center justify-center'>
 
                     <div className='!w-full border border-dashed border-black py-4 flex-wrap  !h-full flex items-center justify-center gap-[4rem]'>
-                        <div className='bg-gray-200 !w-[15rem] !h-[18rem]'>26</div>
+                        <div className='bg-[#282828] rounded-md !w-[15rem] !h-[18rem]'>
+                            <Calendar color={(completionPercentage >= 80 ? "bg-green-500" : "bg-yellow-500")} />
+                        </div>
                         <div className='flex flex-col h-full items-center gap-[3rem]'>
                             <div className='flex flex-col justify-center items-center border border-dashed border-black w-[15rem] h-[5rem]'>
                                 <h1>June 2023</h1>
@@ -105,10 +118,10 @@ const AddTodo = () => {
             {/* for todos which are going to be mapped */}
             <Tabs defaultActiveKey='1' >
                 <Tabs.TabPane tab="Pending" key="1">
-                    <Todo todo={todo} check={1} getTodo = {getTodo} setTodo={setTodo}/>
+                    <Todo todo={todo} check={1} getTodo={getTodo} setTodo={setTodo} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Completed" key="2">
-                    <Todo todo={todo} check={2} getTodo = {getTodo} setTodo={setTodo}/>
+                    <Todo todo={todo} check={2} getTodo={getTodo} setTodo={setTodo} />
                 </Tabs.TabPane>
             </Tabs>
 

@@ -2,6 +2,7 @@ import { Divider, Tabs } from 'antd'
 import React from 'react'
 import AddTodo from '../../components/AddTodo'
 import Todo from '../../components/Todo'
+import YearCalendar from '../../components/YearCalendar'
 
 const Home = () => {
   return (
@@ -13,7 +14,7 @@ const Home = () => {
           <AddTodo />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Graph and Growth" key="2">
-          <h1>Graph</h1>
+          <YearCalendar />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Coins and Achievements" key="3">
           <h1>Coins</h1>
