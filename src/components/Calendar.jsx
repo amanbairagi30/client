@@ -13,7 +13,7 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 
-const Calendar = ({color}) => {
+const Calendar = ({ color, dbDate, completedData, contributionData }) => {
     let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
     let LastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate()
     let LastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate()
@@ -25,12 +25,12 @@ const Calendar = ({color}) => {
 
     const isCurrentDate = (date) => {
         return date === new Date().getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear();
-      };
+    };
 
     return (
         <>
             <div className='m-2 mt-3 font-semibold shadow-slate-400 rounded-md px-2 py-[0.25rem] bg-white'>
-                <h1>{currDate} {months[currMonth]} - {dayNames[currDay]}  {color}</h1>
+                <h1 className='text-center text-black'>{currDate} {dbDate} {months[currMonth]} - {dayNames[currDay]}  {color}</h1>
             </div>
             <div className='grid grid-rows-7 grid-flow-col my-4 mx-2'>
                 {datesOfLastMonth.map((date) => (
@@ -39,14 +39,32 @@ const Calendar = ({color}) => {
                         {date}
                     </div>
                 ))}
-                {Array(LastDateOfMonth).fill().map((_, dayIndex) => (
-                    <div key={dayIndex + 1} className={`bg-[#3e3e3e] ${isCurrentDate(dayIndex + 1) ? color : ""} text-center rounded-md m-1 w-[1.5rem]`}>
-                        {dayIndex + 1}
-                    </div>
-                ))}
-                {/* <div className='bg-red-500 text-center rounded-md'>
-                    {item}
-                </div> */}
+                {Array(LastDateOfMonth)
+                    .fill()
+                    .map((_, dayIndex) => {
+                        const calendarDate = dayIndex + 1;
+                        const matchingContribution = contributionData.find(
+                            (contribution) => {
+                                const contributionDate = new Date(contribution.date).getDate();
+                                return (
+                                    contributionDate === calendarDate &&
+                                    contribution.completedData >= 80
+                                );
+                            }
+                        );
+
+                        // const color = matchingContribution ? 'green' : 'gray';
+
+                        return (
+                            <div
+                                key={dayIndex + 1}
+                                className={`${matchingContribution ? `bg-green-500` : `bg-[#3e3e3e]`} text-center rounded-md m-1 w-[1.5rem]`}
+                            >
+                                {dayIndex + 1}
+                            </div>
+                        );
+                    })}
+
 
             </div>
         </>

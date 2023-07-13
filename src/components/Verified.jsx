@@ -17,7 +17,11 @@ const Verified = () => {
 
             const response = VerifyMessgae(token);
             console.log(response)
-            setValid(true)
+            if(response.success){
+                setValid(true)
+            } else {
+                setValid(false)
+            }
 
         } catch (error) {
             console.log(error)

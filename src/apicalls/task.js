@@ -13,9 +13,9 @@ export const AddTask = async (payload) => {
 
 // get all task
 
-export const GetAllTask = async () => {
+export const GetAllTask = async (filters) => {
     try {
-        const response = await axiosInstance.get("/api/users/get-all-todo");
+        const response = await axiosInstance.post("/api/users/get-all-todo" , filters);
         return response.data;
     } catch (error) {
         return error.message

@@ -5,7 +5,7 @@ import { DeleteTask, GetAllTask, UpdateTask } from '../apicalls/task';
 import { message } from 'antd';
 
 
-const Todo = ({ todo, setTodo, check, getTodo }) => {
+const Todo = ({ todo, check, getTodo }) => {
     const remainingTasks = todo.filter((task) => !task.completed);
     const completedTasks = todo.filter((task) => task.completed);
     const dispatch = useDispatch();
@@ -53,6 +53,7 @@ const Todo = ({ todo, setTodo, check, getTodo }) => {
 
     useEffect(() => {
         getTodo();
+        
     }, [])
 
     return (

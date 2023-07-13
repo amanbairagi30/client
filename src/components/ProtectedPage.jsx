@@ -22,6 +22,7 @@ const ProtectedPage = ({ children }) => {
 
       if (response.success) {
         dispatch(SetUser(response.data))
+        navigate("/")
       }
       else {
         navigate("/login")
@@ -38,14 +39,6 @@ const ProtectedPage = ({ children }) => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       validateToken();
-      // setTimeout(() => {
-      //     window.location.reload();
-      // }, 1000);
-
-
-      // navigate(0)
-      // window.location.reload()
-      // window.location.reload(false)
     } else {
       message.error("Please Login to Continue");
       navigate("/login")
@@ -57,7 +50,7 @@ const ProtectedPage = ({ children }) => {
     user && (
       <div>
         {/* header */}
-        <div className='flex justify-between items-center bg-[#373535] p-5'>
+        <div className='flex justify-between items-center bg-[#292a2e] p-5'>
           <div className='text-white cursor-pointer' onClick={() => { navigate("/") }}>
             <h1 className='text-2xl font-semibold'>Consistency</h1>
             <span>Maintainer</span>
@@ -84,7 +77,7 @@ const ProtectedPage = ({ children }) => {
             ></i>
           </div>
         </div>
-        <div className="p-5">{children}</div>
+        <div className="p-5 bg-[#191919]">{children}</div>
 
 
       </div>
