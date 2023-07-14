@@ -4,7 +4,7 @@ import React from 'react'
 const About = () => {
   return (
     <div className='h-fit'>
-      <div className='w-full'>
+      <div className='w-full text-justify'>
         <h1 className='text-3xl font-semibold leading-normal'>Welcome to <span className='border-b-2 p-1 border-sky-400'>Consistency Maintainer</span> 🙋‍♂️</h1>
 
         {/* Para 1 */}
@@ -19,8 +19,8 @@ const About = () => {
 
           <Space direction="vertical" className='w-[100%]'>
             <Collapse
+            defaultActiveKey={[1]}
               className='bg-sky-400 border-none rounded-t-md font-semibold'
-              defaultActiveKey={['1']}
               items={[
                 {
                   key: '1',
