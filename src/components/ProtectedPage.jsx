@@ -54,7 +54,7 @@ const ProtectedPage = ({ children }) => {
           <div className='text-white cursor-pointer' onClick={() => { navigate("/") }}>
             <h1 className='text-2xl font-semibold'>Consistency</h1>
             <span>Maintainer</span>
-            <div className='bg-orange-500 h-[0.2rem]'></div>
+            <div className='bg-sky-500 h-[0.2rem]'></div>
           </div>
           <div className='bg-white rounded-md py-2 px-5 flex items-center gap-8'>
             <div className='flex items-center gap-2'>

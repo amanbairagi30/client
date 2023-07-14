@@ -70,7 +70,7 @@ const AddTodo = () => {
         }
     }
 
-    
+
 
     const SaveContribution = async (completionPercentage) => {
         try {
@@ -86,6 +86,7 @@ const AddTodo = () => {
                 // setData(response.data.completedData)
                 // setTodayDate(dateNumber)
                 message.success(response.message)
+                // setSave(true)
                 await GetContInfo()
                 // message.success(response.message + " and " + response.data.date + " and " + dateString)
 
@@ -132,51 +133,56 @@ const AddTodo = () => {
         GetContInfo();
     }, [])
 
+    const checkBtnStatus = data.some((item) => new Date(item.date).getDate() === new Date().getDate());
+
     return (
         <div className='text-white'>
             <div className=' h-fit items-center gap-[5rem] p-4 border border-solid border-black grid md:grid-cols-2 grid-cols-1  '>
                 <div className='w-full'>
 
                     <h1 className='text-center mt-2 text-2xl'>Target for Today</h1>
-                    <button hidden={save} className='border -border-solid px-2 border-black' onClick={() => SaveContribution(completionPercentage)}>Save Contribution</button>
                     <div className='flex items-center  justify-center h-fit m-0 p-0 border-black'>
 
                         <Progress_bar bgcolor={(completionPercentage >= 80 ? "bg-green-500 text-white" : "bg-yellow-400 ")} progress={completionPercentage === "NaN" ? "0" : completionPercentage} height={20} />
                     </div>
-                    <div className="m-auto flex text-white  px-4">
+                    <div className="m-auto flex flex-col text-white  px-4">
                         <Form
                             layout="vertical"
                             onFinish={onFinish}
-                            className='w-full '
+                            className='w-full'
                         >
                             <Form.Item label="" style={{ color: 'white' }} name={"title"} rules={rules}>
-                                <Input  placeholder='Title?' style={{ backgroundColor: '#efefef' }}/>
+                                <Input placeholder='Title?' className='placeholder-gray-500 placeholder:font-semibold text-white border-none rounded-md' style={{ backgroundColor: '#3e3e3e' }} />
                             </Form.Item>
                             <Form.Item label="" name={"description"} rules={rules}>
-                                <Input placeholder='Description?' style={{ backgroundColor: '#efefef'}} />
+                                <Input placeholder='Description?' className='placeholder-gray-500 placeholder:font-semibold text-white border-none rounded-md' style={{ backgroundColor: '#3e3e3e' }} />
                             </Form.Item>
 
 
-                            <Button type='primary' className='bg-black hover:bg-gray-900' block htmlType='submit'>Set Target</Button>
+                            <Button type='primary' className='bg-sky-500 border-none hover:bg-gray-900 w-[5rem]' block htmlType='submit'>Set Target</Button>
+
 
                         </Form>
+                        <button disabled={checkBtnStatus} title={checkBtnStatus ? "You have submitted today's progress" : "Save your progress for today, but after submitiing you will not able to submit again for today"} className={`border -border-solid px-2 w-full mt-4 h-[2rem] ${checkBtnStatus ? `cursor-not-allowed opacity-20` : `hover:bg-white hover:text-black`} hover:transition-all duration-200 ease-in-out  border-white`} onClick={() => SaveContribution(completionPercentage)}>Save Progress</button>
                     </div>
                 </div>
                 <div className='w-full  p-4 mr-4 flex flex-col items-center justify-center'>
 
                     <div className='!w-full  py-4 flex-wrap  !h-full flex items-center justify-center gap-[4rem]'>
                         <div className='bg-[#282828] rounded-md !w-[15rem] !h-fit'>
-                            <Calendar contributionData = {data}  dbDate={todayDate} completedData={data} />
+                            <Calendar contributionData={data} dbDate={todayDate} completedData={data} />
                         </div>
                         <div className='flex flex-col h-full items-center gap-[3rem]'>
                             <div className='flex justify-between items-center border border-dashed border-white  w-[15rem] h-[5rem] p-4'>
                                 <span>Total Active Days</span>
-                                <h1 className='text-3xl bg-orange-600 text-white p-2 px-4 rounded-md'>{data.length}</h1>
+                                <h1 className='text-3xl bg-[#3e3e3e] text-white p-2 px-4 rounded-md'>{data.length}</h1>
                             </div>
                             <div className='flex justify-between items-center border border-dashed border-white  w-[15rem] h-[5rem] p-4'>
                                 <span>Total Successfull Days</span>
                                 <h1 className='text-3xl bg-green-600 text-white p-2 px-4 rounded-md'>{data.filter((contribution) => contribution.completedData >= 80).length}</h1>
                             </div>
+
+
                             {/* <div className='flex flex-col  justify-center items-center border border-dashed border-black w-[15rem] h-[5rem]'>
                                 <h1>June 2023</h1>
                                 Max. Streak  : 26 days
@@ -187,7 +193,7 @@ const AddTodo = () => {
             </div>
             <Divider dashed />
             {/* for todos which are going to be mapped */}
-            <Tabs defaultActiveKey='1' style={{color : "white"}}>
+            <Tabs defaultActiveKey='1' style={{ color: "white" }}>
                 <Tabs.TabPane tab="Pending" key="1">
                     <Todo todo={todo} check={1} getTodo={getTodo} setTodo={setTodo} />
                 </Tabs.TabPane>

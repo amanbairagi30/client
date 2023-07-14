@@ -6,6 +6,7 @@ import YearCalendar from '../../components/YearCalendar'
 import { GetContribution } from '../../apicalls/contribution'
 import { useDispatch, useSelector } from 'react-redux'
 import { SetLoader } from '../../redux/loadersSlice'
+import About from '../../components/About'
 
 const Home = () => {
   const { user } = useSelector((state) => state.users)
@@ -55,8 +56,8 @@ const Home = () => {
           <Tabs.TabPane tab="Graph and Growth" key="2">
             <YearCalendar contributionData={data} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab="Coins and Achievements" key="3">
-            <h1>Coins</h1>
+          <Tabs.TabPane tab="About us" key="3">
+            <About />
           </Tabs.TabPane>
         </Tabs>
 
