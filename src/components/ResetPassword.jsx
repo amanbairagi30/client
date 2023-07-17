@@ -17,6 +17,7 @@ const ResetPassword = () => {
 
     const { id, token } = useParams();
     const [valid, setValid] = useState(false);
+    const navigate = useNavigate();
     const [status, setStatus] = useState(false);
     const dispatch = useDispatch()
 
@@ -30,6 +31,7 @@ const ResetPassword = () => {
             if (response.success) {
                 message.success(response.message)
                 setStatus(true);
+                navigate("/login");
             }
             else {
                 throw new Error(response.message);
