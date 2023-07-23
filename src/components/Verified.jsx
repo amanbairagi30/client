@@ -49,7 +49,7 @@ const Verified = () => {
             <div className='flex flex-col justify-center items-center h-[100vh] border border-solid border-black'>
                 <div className="m-auto flex flex-col items-center">
                     <img src={gif2} alt="" className='h-[4.5rem] w-fit' />
-                    Something went wrong
+                    Something went wrong , but still try to login
                     <div>
                         Got to <Link to="/login"><span className="underline">Login Page</span></Link>
                     </div>

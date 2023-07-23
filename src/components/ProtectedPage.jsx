@@ -13,7 +13,8 @@ const ProtectedPage = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userFirstName  = (user?.name).split(" ")[0]
+  const userFirstName = (user?.name?.split(" ")[0]) || "";
+
 
   const validateToken = async () => {
 
