@@ -13,6 +13,8 @@ const ProtectedPage = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const userFirstName  = (user?.name).split(" ")[0]
+
   const validateToken = async () => {
 
     try {
@@ -23,16 +25,18 @@ const ProtectedPage = ({ children }) => {
       if (response.success) {
         dispatch(SetUser(response.data))
         navigate("/")
+        navigate("/")
+        navigate("/")
       }
       else {
         navigate("/login")
-        message.error(response.message)
+        // message.error(response.message)
       }
 
     } catch (error) {
       dispatch(SetLoader(false));
       navigate("/login")
-      message.error(error.message);
+      // message.error(error.message);
     }
   }
 
@@ -50,14 +54,14 @@ const ProtectedPage = ({ children }) => {
     user && (
       <div>
         {/* header */}
-        <div className='flex justify-between items-center bg-[#292a2e] p-5'>
+        <div className='flex justify-between gap-4 items-center bg-[#292a2e] p-5'>
           <div className='text-white cursor-pointer' onClick={() => { navigate("/") }}>
             <h1 className='text-2xl font-semibold'>Consistency</h1>
             <span>Maintainer</span>
             <div className='bg-sky-500 h-[0.2rem]'></div>
           </div>
-          <div className='bg-white rounded-md py-2 px-5 flex items-center gap-8'>
-            <div className='flex items-center gap-2'>
+          <div className='bg-white rounded-md py-2 px-1 flex items-center gap-8'>
+            <div className='flex items-center gap-1'>
               <img className='w-8' src={user.profilePic} alt="" />
               <span className='underline cursor-pointer' onClick={() => {
                 if (user.role === "user") {
@@ -66,10 +70,10 @@ const ProtectedPage = ({ children }) => {
                 else {
                   navigate("/admin");
                 }
-              }}>{user?.name}</span>
+              }}>{userFirstName}</span>
 
             </div>
-            <i className="text-md text-black ri-logout-box-r-line cursor-pointer"
+            <i className="text-md m-1 text-black ri-logout-box-r-line cursor-pointer"
               onClick={() => {
                 localStorage.removeItem("token");
                 navigate("/login");
